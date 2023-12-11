@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta http-equiv="content-type"
+        content="text/html; charset=UTF-8">
+    <title>send test</title>
+    <style>
+    body {
+    font: Helvetica;
+    }
+    </style>
+    <link rel="stylesheet" type="text/css" href="chatbox.css">
+    <script type="text/javascript" src="chatbox.js"></script>
+
+</head>
+ 
+<body>
+<hr>
+<form method="post" id="form" name="form" target="sendText">
+<table>
+    <text>選擇用戶  </text>
+    <input type="button" onclick="func1()" style="font-size     : 20pt;" value="Chiru" class="input button">
+    <input type="button" onclick="func2()" style="font-size     : 20pt;" value="Axel" class="input button">
+    <p></p>
+        <span style="font: Helvetica;">輸入你的文字  </span><input type="text" name="text" id="text" style="width:500px; height:1.5em; font-size:110%;">
+<p> </p>
+    <font size="+2">你目前選擇的用戶：<text id = "user"></text></font>
+<script type="text/javascript">
+  document.getElementById('user').innerHTML = "無"
+</script>
+<p> </p>
+        <button class="btn-send" id="send" style="font-size     : 20pt;" onClick="btn();">送出對話</button>
+        <button class="1234444" id="send" style="font-size     : 20pt;" onClick="btnclear();">清除所有</button>
+
+</table>
+</form>
+<iframe name="sendText" style="width:0px;height:0px;border:0px;"></iframe>
+<br><br>
+
+<textarea readonly id="log"  style="font-family:'Calibri'; font-size: 20px" rows="30" cols="76">
+  
+</textarea>
+
+
+
+<input type="button" onclick="export1(document.getElementById('text').value)" value="導出這次對話" class="input button">
+
+<br><br>
+<script type="text/javascript">
+
+
+const $form = $('#form')
+
+$('.btn-send').on('click', evt => {
+  $form.submit()
+  $form[0].reset()
+    $('#form').val('');
+  return false
+})
+
+function func1() {
+  localStorage.setItem('store_name', 'Chiru'); 
+  document.getElementById('user').innerHTML = "Chiru"
+}
+
+function func2() {
+  localStorage.setItem('store_name', 'Axel'); 
+  document.getElementById('user').innerHTML = "Axel"
+}
+
+function btnclear() {
+  document.getElementById('log').value = ""
+  window.alert("清除成功")
+}
+
+function export1(text) {
+    document.getElementById('user').innerHTML = "123"
+}
+
+
+function btn() {
+ let time = getTime();
+ let input = "<" + localStorage.getItem('store_name') + "> " + document.getElementById('text').value + "\n";
+ let log = document.getElementById('log').value;
+ log += input
+ document.getElementById('log').value = log;
+}
+
+
+
+function sleep(waitMsec) {
+  var startMsec = new Date();
+ 
+  // 指定ミリ秒間だけループさせる（CPUは常にビジー状態）
+  while (new Date() - startMsec < waitMsec);
+}
+/*
+let btn = document.getElementById('send');
+btn.addEventListener('submit', function () {
+alert('a');
+let input = document.getElementById('text').value + "\n";
+let log = document.getElementById('log').value;
+log += input
+document.getElementById('log').value = log;
+}, false);
+*/
+function getTime() {
+  var date = new Date();
+  var hour = date.getHours();
+  var minute = date.getMinutes();
+  var second = date.getSeconds();
+  hour = ('0' + hour).slice(-2);
+  minute = ('0' + minute).slice(-2);
+  second = ('0' + second).slice(-2);
+  var time = hour + ':' + minute + ':' + second;
+  return time;
+}
+</script>
+</body>
+ 
+</html>
